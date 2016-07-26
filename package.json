@@ -1,0 +1,32 @@
+{
+  "name": "d3-ui",
+  "version": "0.0.1",
+  "description": "A set of UI components made using D3",
+  "keywords": [
+    "d3",
+    "d3-ui"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "build/d3-ui.js",
+  "jsnext:main": "index",
+  "homepage": "https://github.com/jerrythomas/d3-ui",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jerrythomas/d3-ui.git"
+  },
+  "scripts": {
+    "pretest": "rm -rf build && mkdir build && rollup -g d3-path:d3 -f umd -n d3 -o build/d3-ui.js -- index.js",
+    "test": "tape 'test/**/*-test.js'",
+    "prepublish": "npm run test && uglifyjs build/d3-ui.js -c -m -o build/d3-ui.min.js",
+    "postpublish": "zip -j build/d3-ui.zip -- LICENSE README.md build/d3-ui.js build/d3-ui.min.js"
+  },
+  "devDependencies": {
+    "rollup": "0.27",
+    "tape": "4",
+    "uglify-js": "2"
+  },
+  "dependencies": {
+    "d3-path":"1",
+    "d3":"3"
+  }
+}
