@@ -4,13 +4,43 @@ var appIcon = {};
 // Drag and Drop Handlers
 var dragSrcEl;
 var newId = 0;
+var actionEvent = new CustomEvent("action", { "detail": "Action Icon clicked." });
 
 // Move the dragged item only if it is a list item
 function handleDrop(d,i){
    d3.event.stopPropagation();
-   if (this != dragSrcEl && dragSrcEl.tagName.toLowerCase() == "li")
+   if (this != dragSrcEl && dragSrcEl.tagName.toLowerCase() == "li"){
+       
       this.parentNode.insertBefore(dragSrcEl, this);
-
+      var level =  parseInt(this.parentNode.className.substr(1));
+      if (dragSrcEl.childNodes.length > 0)
+      {
+          var sublist = d3.select(dragSrcEl).selectAll("ul")._groups[0];
+          console.log(sublist);
+          var minLevel = 6;
+          var maxLevel = 0;
+          var offset = 0;
+          for (var i=0;i<sublist.length;i++)
+          {
+               console.log(sublist[i]);
+               console.log(sublist[i].className);
+               offset = parseInt(sublist[i].className.substr(1));
+               minLevel = Math.min(minLevel,offset);
+               maxLevel = Math.max(maxLevel,offset);
+               console.log(offset+" , "+minLevel+" , "+maxLevel);
+          }
+          offset = level - minLevel + 1;
+           d3.select(dragSrcEl)
+                .selectAll("ul")
+                .each(function (d){
+                    var dx = parseInt(this.className.substr(1));
+                    d3.select(this)
+                      .classed("d"+dx,false)
+                      .classed("d"+(dx+offset),true);
+                });
+      }
+   }
+   // change the class d? 
 }
 
 function handleDragStart (d,i) {
@@ -50,7 +80,33 @@ function handleToggleClick(d){
     //console.log("toggle");
     d3.event.stopPropagation();
     var node = d3.select(this)
-    node.classed("collapsed",!node.classed("collapsed"));
+    var root = findRootElement(d3.event.target);
+    var config = d3.select(root).datum();
+    
+    if (config.behavior.accordion)
+    {
+       d3.selectAll(this.parentNode.childNodes)
+         .each(function (d) { if (this.childNodes.length > 1)
+                                 d3.select(this)
+                                   .classed("collapsed",true) });      
+    }
+    d3.select(root+" .ui-highlight").classed("ui-highlight",false);
+    node.classed("ui-highlight",true);
+    
+    if (node.node().childNodes.length > 1){
+       node.classed("collapsed",!node.classed("collapsed"));
+       node.classed("ui-expanded",!node.classed("collapsed"));
+    }
+    else 
+    {
+        var actionEvent = new Event("open",{
+                                            "view": window,
+                                            "bubbles": false,
+                                            "cancelable": false
+                                          });
+        //console.log(this);
+        this.dispatchEvent(actionEvent); 
+    }
 } 
 
 // Click event handler for toolbar buttons
@@ -64,6 +120,7 @@ function handleClick(d)
        case "search": handleSearch(d); break;
     }
 }
+
 // Show hide the searchbar
 function handleSearch(d){
     searchbar = d3.select(d.rootId)
@@ -86,18 +143,33 @@ function handleAdd(d){
     cancelDelete(d.rootId);
     
     if (config.hasOwnProperty("template")){
-        var rowData = Object.assign({}, config.template);
-        rowData.id = "N-"+newId; //guid()
-        //console.log(rowData);
-        
-        var item = d3.select(d.rootId).select("ul")
-                    .append("li")
-                    .attr("id",rowData.id)
-                    .data([rowData])
-                    .each(function (d,i) { addItems(d,this);});
-        enableEvents(d.rootId);
-        newId++;
-    }
+        var rowData;
+        var level = "d0";
+        activeRow = d3.select(d.rootId+" .ui-highlight");
+        //console.log("selection is ");
+        //console.log(activeRow);
+        if (!activeRow.empty())
+        {
+           level = activeRow.node().parentNode.className;
+           //console.log(level);
+        }
+        if (config.template.hasOwnProperty(level))
+        {
+            rowData = Object.assign({}, config.template[level]);
+            rowData.id = "N-"+newId; //guid()
+            console.log(rowData);
+            console.log(level);
+            var item = d3.select((level == "d0")? d.rootId + " ul."+level : activeRow.node().parentNode)
+                         .append("li")
+                         .attr("id",rowData.id)
+                         .data([rowData])
+                         .each(function (d,i) { addItems(d,this);});
+            enableEvents(d.rootId);
+            newId++;
+        }
+        else
+          console.log("Cannot add item at level {"+level+"} as there is no template defined.");
+    } 
 }
 
 // Cancel the delete selection. Selections are retained.
@@ -194,6 +266,18 @@ function handleAction(d)
                                       });
     }
     
+    //if (opt.hasOwnProperty("handle",d3.event.target))
+    //    opt.handle(d);
+    if (node.attr("id") == "open")
+    {
+        //console.log(node);
+        var actionEvent = new Event("open",{
+                                            "view": window,
+                                            "bubbles": false,
+                                            "cancelable": false
+                                          });
+        prnt.node().dispatchEvent(actionEvent); 
+    }
     //console.log("action event");
     //console.log(d);
     
@@ -233,7 +317,51 @@ function enableEvents(root)
        d3.selectAll(root+" li")
          .on("click",handleToggleClick);
    }
+   if (opt.hasOwnProperty("handle"))
+   {
+      d3.selectAll(root+" li")
+        .on("open",opt.handle);
+   }
 }
+function updateParentData(){
+ //console.log(this);
+ var nodeData = d3.select(this).data();
+ var childNodes;
+ 
+ if (typeof nodeData[0] == 'undefined'){
+   //console.log("this node has no data");
+   return this;
+ }
+ //console.log("before"); 
+ //console.log(this.childNodes.length); 
+ if (this.childNodes.length >= 2){
+     var pos = (this.childNodes.length == 2) ? 1: 2;
+    if (this.childNodes[pos].tagName == "UL"){
+        nodeData[0].data = [];
+        childNodes = this.childNodes[pos].childNodes;
+        //console.log(childNodes);
+        
+        if (childNodes.length > 0){
+           d3.selectAll(childNodes)
+             .each(updateParentData);
+        
+           nodeData[0].data = d3.selectAll(childNodes).data();
+           //console.log("after");
+           //console.log(nodeData[0]);
+        }
+    }
+ }
+ else {
+    console.log("No more children");
+    //nodeData[0].extra = "Something extra added at leaf node";
+ }
+ d3.select(this).data(nodeData);
+ //console.log(d3.select(this).data());
+ return this;
+}
+
+
+
 function clearFilter(root) 
 {
     d3.selectAll(root)
@@ -244,10 +372,9 @@ function applyFilter(d,node,text){
     var level = parseInt(d3.select(node.parentNode).attr("class").substr(1));
     var root = findRootElement(node);
     var opt = d3.select(root).datum();
-    
-    
-    if (d.hasOwnProperty(opt.dataMap.text))
-        if (d[opt.dataMap.text].toLowerCase().indexOf(text) == -1)
+    //console.log(d.searchData);
+    //if (d.hasOwnProperty(opt.dataMap.text))
+        if (d.searchData.indexOf(text) == -1)
            if (d.hasOwnProperty(opt.dataMap.data))
             {
                d3.select(node)
@@ -271,11 +398,13 @@ function addItems(item,element)
 {
    var node  = d3.select(element);
    //var items = node.datum();
-   var level = node.classed("list") ? 0: parseInt(node.node().parentNode.className.substr(1, 1))+1;
+   var level = node.classed("ui-list") ? 0: parseInt(node.node().parentNode.className.substr(1, 1))+1;
    var dataMap = {};
    var opt = node.datum();
+   var nodeData = node.datum();
    
    //console.log(opt);
+   
    if (opt.hasOwnProperty("dataMap"))
       dataMap = opt.dataMap;
    else {
@@ -285,23 +414,20 @@ function addItems(item,element)
    
    if (!(item instanceof Array))
    {
-       //console.log(dataMap);
+       nodeData.searchData = "";
+       for (var idx in dataMap.search){
+           if (item.hasOwnProperty(dataMap.search[idx]))
+              nodeData.searchData = nodeData.searchData.concat(((idx == 0)? "":" , ")+item[dataMap.search[idx]]);
+       }
+       nodeData.searchData = nodeData.searchData.toLowerCase();
+       console.log(nodeData);
+       if (item.hasOwnProperty("style")){
+          for (var j = 0 ; j < item.style.length;j++)
+              node.classed(item.style[j],true);
+       }
        var content = node.append("div");
        var nCols = 1;
-       // Add the content to be displayed
-       switch(dataMap.mode) 
-       {
-         case "innerHtml":
-           content.append("p")
-                  .innerHTML(item[dataMap.innerHTML]);
-           break;
-         case "input":
-           content.append("input")
-                  .innerHTML(item[dataMap.innerHTML]);
-           break;
-         default:
-           content.text(item[dataMap.text]);
-       }
+
        
        toggle = content.append("svg")
                        .attr("class","lx");
@@ -327,6 +453,16 @@ function addItems(item,element)
            }
            nCols++;
        }
+       
+       if (item.hasOwnProperty(dataMap.text))
+           content.append("p")
+                  .text(item[dataMap.text]);
+       if (item.hasOwnProperty(dataMap.innerHTML))
+           content.append("p")
+                  .html(item[dataMap.innerHTML]);
+       //if (item.hasOwnProperty(dataMap.input))
+       //    content.append("input")
+       //           .innerHTML(item[dataMap.innerHTML]);
        
        // Add the action for the item
        if (item.hasOwnProperty(dataMap.action))
@@ -379,35 +515,37 @@ d3ui.List = function(wrapper,data)
         "mode":"default",
         "id":"id",
         "text":"text",
-        "icon":"type-icon",
+        "icon":"icon",
         "input":"input",
         "action":"action",
-        "innerHtml":"innerHtml",
-        "data":"data"
+        "innerHTML":"innerHTML",
+        "data":"data",
+        "search":["text","input","innerHTML"]
      },
      "behavior":{  
         "draggable":true,
         "droppable":true,
         "collapsible":true,
-        "searchAlwaysOn":false
+        "searchAlwaysOn":false,
+        "accordion":false
      },
      "toolbar":{  
         "isEmbedded":true,
         "alwaysVisible":true,
-        "buttons":[{"name":"search"},{"name":"add"},{"name":"delete"}]
+        "buttons":[] /*{"name":"search"},{"name":"add"},{"name":"delete"}]*/
      },
      "styles":["rounded"]
   };
   
   listData.data  = data || [];
-  
+  this.title = "";
   this.root = d3.select(wrapper);
   
   if (this.root.empty())
      console.error("Unable to find element to bind list to");
   else 
      this.root
-         .classed("list",true)
+         .classed("ui-list",true)
          .data([listData]);
 }
 
@@ -423,46 +561,41 @@ d3ui.List.prototype.rowTemplate = function(template)
 }
 d3ui.List.prototype.attributeMap = function(mapping)
 {
-    listData = this.root.datum();
-    listData.dataMap = { "id":mapping.hasOwnProperty("id") ? mapping.id:listData.dataMap.id,
-                         "mode":mapping.hasOwnProperty("mode") ? mapping.mode:listData.dataMap.mode,
-                         "text":mapping.hasOwnProperty("text") ? mapping.text:listData.dataMap.text,
-                         "icon":mapping.hasOwnProperty("icon") ? mapping.icon:listData.dataMap.icon,
-                         "data":mapping.hasOwnProperty("data") ? mapping.data:listData.dataMap.data,
-                         "input":mapping.hasOwnProperty("input") ? mapping.input:listData.dataMap.input,
-                         "action":mapping.hasOwnProperty("action") ? mapping.action:listData.dataMap.action,
-                         "innerHtml":mapping.hasOwnProperty("innerHtml") ? mapping.innerHtml:listData.dataMap.innerHtml };
+    config = this.root.datum();
+    Object.assign(config.dataMap,mapping);
     return this;
 }
 d3ui.List.prototype.behavior = function(opt)
 {
-    listData = this.root.datum();
-    listData.behavior = {"draggable":opt.hasOwnProperty("draggable") ? opt.draggable:listData.behavior.draggable, 
-                         "sortable":opt.hasOwnProperty("sortable") ? opt.sortable:listData.behavior.sortable,
-                         "collapsible":opt.hasOwnProperty("collapsible") ? opt.collapsible:listData.behavior.collapsible,
-                         "allowAdd":opt.hasOwnProperty("allowAdd") ? opt.allowAdd:listData.behavior.allowAdd,
-                         "allowRemove":opt.hasOwnProperty("allowRemove") ? opt.allowRemove:listData.behavior.allowRemove,
-                         "allowSearch":opt.hasOwnProperty("allowSearch") ? opt.allowSearch:listData.behavior.allowSearch,
-                         "searchAlwaysOn":opt.hasOwnProperty("searchAlwaysOn") ? opt.searchAlwaysOn:listData.behavior.searchAlwaysOn};
+    config = this.root.datum();
+    Object.assign(config.behavior,opt);
     return this;
 }
 d3ui.List.prototype.layout = function(opt)
 {
-    listData = this.root.datum();
-    listData.layout = {"hasToolbar":opt.hasOwnProperty("hasToolbar") ? opt.hasToolbar:listData.layout.hasToolbar, 
-                       "hasSearchbar":opt.hasOwnProperty("hasSearchbar") ? opt.hasSearchbar:listData.layout.hasSearchbar};
+    config = this.root.datum();
+    Object.assign(config.layout,opt);
     return this;
 }
 
 d3ui.List.prototype.setTitle = function(title)
 {
    this.title = title;
+   console.log(this.title);
    return this;
 }
-d3ui.List.prototype.show = function()
+d3ui.List.prototype.setEventHandle = function(handle)
+{
+   var opt = this.root.datum();
+   opt.handle = handle;
+   return this;
+}
+d3ui.List.prototype.show = function(handle)
 {
    var toolBar;
    var opt = this.root.datum();
+   if (handle)
+       opt.handle = handle;
    //console.log(opt);
    
    for (var i in opt.toolbar.buttons)
@@ -470,7 +603,8 @@ d3ui.List.prototype.show = function()
    
    //Add title
    if (this.title.length > 0)
-       toolBar = this.root.append("h1")
+       toolBar = this.root.append("div")
+                          .classed("h1",true)
                           .text(this.title)
                           .classed("always-on-top",function (d) { return d.toolbar.alwaysVisible && d.toolbar.isEmbedded;});
                           
@@ -496,12 +630,13 @@ d3ui.List.prototype.show = function()
     }      
     if (opt.layout.hasSearchbar || opt.behavior.allowSearch || opt.toolbar.buttons.indexOf("search") > 0)
         this.root.append("div")
-                 .attr("class","search")
+                 .attr("class","info")
                  .style("display",function(d) { return d.behavior.searchAlwaysOn ? "block":"none";})
                  .append("input")
                  .attr("id","spotlight")
                  .attr("maxlength",500)
-                 .attr("type","text")
+                 .attr("type","search")
+                 .attr("placeholder","Search")
                  .on("keydown",handleTextDeleted)
                  .on("keyup"  ,handleTextChanged);
     
@@ -510,15 +645,37 @@ d3ui.List.prototype.show = function()
     enableEvents(this.root.datum().rootId);
     return this;
 }
-d3ui.List.prototype.button = function(name,shape,handle)
+d3ui.List.prototype.activate = function(refId)
 {
-    var toolbar = this.root.datum().toolbar;
-    
-    if (["search","add","delete"].indexOf(name) == -1)
-        toolbar.push({"name":name})
-    else
-        toolbar.push({"name":name,"shape":shape,"handle":handle})
+   var node = this.root.select(refId);
+   var actionEvent = new Event("open",{
+                                       "view": window,
+                                       "bubbles": false,
+                                       "cancelable": false
+                                     });
+   node.node().dispatchEvent(actionEvent); 
+   return this;
 }
 
-
-
+d3ui.List.prototype.button = function(name,shape,handle)
+{
+    var config = this.root.datum();
+    console.log(config.toolbar);
+    if (["search","add","delete"].indexOf(name) == -1)
+        config.toolbar.buttons.push({"name":name});
+    else
+        config.toolbar.buttons.push({"name":name,"shape":shape,"handle":handle});
+    
+    console.log (this.root.datum());
+    return this;
+}
+d3ui.List.prototype.buttons = function(btn){
+    for (var i in btn)
+        this.button(btn[i]["name"],btn[i]["shape"],btn[i]["handle"]);
+    return this;
+}
+d3ui.List.prototype.on = function(eventName,handle)
+{
+    this.root.datum().handle = handle;
+    return this;
+}

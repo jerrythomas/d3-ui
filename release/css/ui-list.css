@@ -1,0 +1,227 @@
+.ui-list {
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #eeeeee;
+    overflow:hidden;
+    font-family: Raleway, sans-serif;
+}
+
+.ui-list * {
+    display: block;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.ui-list > .h1,
+.ui-list div,
+.ui-list ul,
+.ui-list li {
+    width: 100%;
+}
+.ui-list li {
+    min-height: 2em;
+    cursor: pointer;
+    border-bottom: 1px solid #cccccc;
+    border-top: 1px solid #ffffff;
+}
+.ui-list li > div{
+    position: relative;
+    min-height: 2em;
+    overflow: auto;
+    padding-left: 5px;
+}   
+.ui-list li > div > p {
+    float: left;
+    min-height: 2em;
+    padding-left:3px;
+    line-height: 2em;
+    width: calc(100% - 5em - 5px);
+}
+.ui-list li > .c2 > p {
+    float: left;
+    padding-left: 3px;
+    width: calc(100% - 3em - 5px);
+}
+.ui-list .d0 {
+    height: 100%;
+    overflow-y: auto;
+}
+.ui-list .d0 > li > div{
+    border-bottom: 1px solid #cccccc;
+}
+.ui-list .h1 ~ .d0 {
+    height: calc(100% - 2em);
+}
+.ui-list .tb ~ .d0 {
+    height: calc(100% - 5em);
+}
+.ui-list .d1 {
+    background-color: #fff;
+}
+.ui-list .d1 > li {
+    border-bottom: 1px solid #eeeeee;
+}
+.ui-list > .info {
+    padding: 0 1em;
+    background-color: #ECF4FF;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #ccc;
+    height: 3em; 
+}
+.ui-list > .h1 {
+    padding: 0 1em;
+    line-height: 2em;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.6) , -1px -1px 1px rgba(255,255,255,0.67) ;
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);   
+    border-bottom: 1px solid #ccc; 
+}
+.ui-list > .h1 > div {
+    float:right;
+    width:auto;
+}
+.ui-list .info > input[type="search"] {
+    margin-top:.5em;
+    border-radius:1em;
+}
+.ui-list svg {
+    height:2em;
+    width: 2em;
+    margin:0;
+    padding:0;
+    float:right;
+}
+.ui-list span {
+    width: 2em;
+    float: left;
+    top: 50%;
+}
+
+.ui-list img{
+    width: 2em;
+    height: 2em;
+    top: 50%;
+} 
+.ui-list .lx {
+    width: 12px;
+    float: left;
+    top: 50%;
+}
+.d0, .d1,.d2,.d3,.d4 {
+    font-size: 12pt;
+}
+/*.d1 > li{
+    padding-left: 5px;
+}
+.d2 > li{
+    padding-left: 10px;
+} 
+.d3 > li{
+    padding-left: 15px;
+} */
+ 
+.lg li,
+.lg li > div,
+.lg li > div > p,
+.lg li > div > svg,
+.lg li > div > span {
+    min-height: 2em;
+    /*max-height: 5em;*/
+}
+.lg li > div{
+    overflow-y: hidden;
+}
+.lg li > div > span {
+    padding-top: 1.5em;
+}
+.lg li > div > p {
+    line-height: 1em;
+    padding: .5em 0;
+}
+
+.ui-list .d1 > li > div {
+  padding-left: 10px; 
+}
+.ui-list .d2 > li > div {
+  padding-left: 20px; 
+}
+.ui-list .d3 > li > div {
+  padding-left: 30px; 
+}
+.ui-list .d4 > li > div {
+  padding-left: 40px; 
+}
+.ui-list .d2 > li {
+	background-color: #fff;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #fff;
+}
+.rt {
+    float: right;
+}
+.rounded {
+    border-radius: 2mm;
+    border: 1px solid #ccc;
+}
+    
+.hide {
+  display: none;
+}
+.collapsed > ul > li {
+  display:none; 
+}
+.collapsed > div .show{
+  display:none;
+}
+.collapsed > div .hide{
+   display:block;
+}
+
+.ui-list .over > div {
+    background: -webkit-linear-gradient(top,rgba(0,0,0,0.6),rgba(255,255,255,0)); 
+    background: -o-linear-gradient(bottom,rgba(0,0,0,0.6),rgba(255,255,255,0)); 
+    background: -moz-linear-gradient(bottom,rgba(0,0,0,0.6),rgba(255,255,255,0)); 
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(255,255,255,0)); 
+}
+.ui-list div:hover > p {
+   color: #0074D9;
+}
+.ui-list div:hover  .hover{
+   stroke: #0074D9;
+}
+
+.ui-list .collapsed .d1{
+    border-top:none;
+}
+.ui-list .d0 > .collapsed > div {
+    border-bottom: none;
+}
+.ui-list li > div:last-child,
+.ui-list .d1 > li:last-child{
+   border-bottom: none;
+}
+
+.ui-highlight > div {
+    /*border-left: 4px solid #3498DB;*/
+    background-color:#EBF5FB;
+}
+.d0 > .ui-highlight > div {
+    border-left: 4px solid #3498DB;
+    background-color:#eeeeee;
+}
+.striped > ul > li:nth-child(even)  {
+    background-color: #F2F3F4;
+ }
+.striped > ul > li:nth-child(odd)  {
+    background-color: #ffffff; 
+}
+
+.striped > ul > li {
+    border-bottom:none;
+    border-top:none;
+}

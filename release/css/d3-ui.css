@@ -1,21 +1,14 @@
-
-* {
-   box-sizing: border-box;
-   margin: 0;
-   padding: 0;
+.list *{
+    margin: 0;
+    padding: 0;
 }
-body {
-    padding:5px;
-}
-
 .list {
    width: 100%;
    display:block;
    min-height:  10em;
    line-height: 2em;
-   font-family: sans-serif;
-   border: 1px solid #ccc;
-   background: #fefefe;
+   /*font-family: sans-serif;*/
+   background: #eee;
 }
 
 .list li {
@@ -27,44 +20,23 @@ body {
    padding-left:.5em;
    box-sizing: border-box;
 }
-.placeholder {
-    display:block;
-    width:100%;
-    height:2em;
-    box-sizing:border-box;
-    background-color: #fff;
-    background-image: linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa), 
-                      linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa);
-    background-size:12px 12px;
-    background-position:0 0, 6px 6px;
-    border : 1px solid #ccc;
+.list li >div {
+    height: 100%;
 }
-
 .hide {
-    display: none;
+  display: none;
 }
 .collapsed > ul > li {
-    display:none; 
+  display:none; 
 }
 .collapsed > div .show{
-    display:none;
+  display:none;
 }
 .collapsed > div .hide{
-    display:block;
+   display:block;
 }
 
-li.over > div,
-li.over > h2,
-li.over > h3,
-li.over > h4,
-li.over > h5 {
-    background: -webkit-linear-gradient(top,rgba(0,0,0,0.6),rgba(255,255,255,0)); 
-    background: -o-linear-gradient(bottom,rgba(0,0,0,0.6),rgba(255,255,255,0)); 
-    background: -moz-linear-gradient(bottom,rgba(0,0,0,0.6),rgba(255,255,255,0)); 
-    background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(255,255,255,0)); 
-}
-
-.list > ul >li {
+/*.list > ul >li {
     padding-right: .5em;
 } 
 .list > ul >li li{
@@ -79,19 +51,60 @@ li.over > h5 {
 .list > ul li:last-child h5,
 .list > ul li:last-child h6{
    border-bottom:none;
-}
+}*/
 .list ul {
    list-style-type: none;
-   background: transparent;
    display:block;
    box-sizing: border-box;
    width:100%;
+   margin: 0;
 }
+.list h1{
+    line-height: 2em;
+    margin: 0;
+    /*font-weight:normal;*/
+     width: 100%;
+   font-size:11pt;
+   padding: 0 1em;
+   border-bottom: 1px solid #ccc;
+   text-shadow: 1px 1px 0 rgba(255,255,255,0.6) , -1px -1px 1px rgba(255,255,255,0.67) ;
+   background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);   
+   border-bottom: 1px solid #ccc; 
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: element;
+}
+
+.list .d0 {
+    height: 100%;
+}
+.list .d0 > li {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #fff;
+}
+ul.d1 {
+    background-color: #fff;
+}
+
+
+li.over > div,
+li.over > h2,
+li.over > h3,
+li.over > h4,
+li.over > h5 {
+    background: -webkit-linear-gradient(top,rgba(0,0,0,0.6),rgba(255,255,255,0)); 
+    background: -o-linear-gradient(bottom,rgba(0,0,0,0.6),rgba(255,255,255,0)); 
+    background: -moz-linear-gradient(bottom,rgba(0,0,0,0.6),rgba(255,255,255,0)); 
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(255,255,255,0)); 
+}
+
+/*
 .list h2,h3,h4,h5,h6 {
     display:block;
     width:100%;
     min-height:inherit;
-}
+}*/
 .list h2:hover,
 .list h3:hover,
 .list h4:hover,
@@ -110,83 +123,59 @@ li.over > h5 {
     border-left: 1px dotted #ccc;
     border-bottom: 1px solid #eee;
 }*/
-
-.striped > li:nth-child(even) > h2,
-.striped > li:nth-child(even) > h3,
-.striped > li:nth-child(even) > h4,
-.striped > li:nth-child(even) > h5,
-.striped > li:nth-child(even) > h6 {
-    background-color: #fff;
+.striped > ul > li:nth-child(even)  {
+    background-color: #eee;
  }
-.striped > li:nth-child(odd) >  h2,
-.striped > li:nth-child(odd) >  h3,
-.striped > li:nth-child(odd) >  h4,
-.striped > li:nth-child(odd) >  h5,
-.striped > li:nth-child(odd) >  h6 {
-    background-color: #f3f3f3; 
+.striped > ul > li:nth-child(odd)  {
+    background-color: #fff; 
 }
-/*
-.striped > li:nth-child(even){
-    background-color: #fff;
- }
-.striped > li:nth-child(odd){
-    background-color: #f3f3f3; 
-}*/
-/*
-.striped > h2:nth-child(even),
-.striped > h3:nth-child(even),
-.striped > h4:nth-child(even),
-.striped > h5:nth-child(even),
-.striped > h6:nth-child(even) {
-    background-color: #fff;
- }
-.striped > h2:nth-child(odd),
-.striped > h3:nth-child(odd),
-.striped > h4:nth-child(odd),
-.striped > h5:nth-child(odd),
-.striped > h6:nth-child(odd) {
-    background-color: #f3f3f3; 
-}*/
+
 .striped > h2 {
     border-bottom:none;
 }
+
+
+
+.list > ul > li {
+        padding: 0;
+    }
+.list .d0 > li > div {
+    padding-left: .5em;
+}
+.list .d1{
+      border-top:1px solid #ccc;
+ }
+.list .collapsed .d1{
+      border-top:none;
+}
+     
+.list .d1 > li {
+        padding: 0;
+}
+/*.list .d1 > li:last-child{
+        border-bottom: none;
+}
+.list .d0 > li {
+        border-bottom: none;
+}*/
+.list .d0 > .collapsed > div {
+        border-bottom: none;
+}
+.list .d1 > li > div {
+        padding-left: 10px;
+}
+.rounded {
+    border-radius: 2mm;
+    border: 1px solid #ccc;
+}
+
+/*
 .rounded > h2:last-child{
    border-bottom-left-radius:  2mm;
    border-bottom-right-radius: 2mm;
    border-bottom: none;
-}
-/*
-.striped h1:nth-child(even),
-.striped h2:nth-child(even),
-.striped h3:nth-child(even),
-.striped h4:nth-child(even), 
-.striped h5:nth-child(even), 
-.striped h6:nth-child(even) {
-    background-color: #fff;
- }
-.striped h1:nth-child(odd),
-.striped h2:nth-child(odd),
-.striped h3:nth-child(odd),
-.striped h4:nth-child(odd),
-.striped h5:nth-child(odd),
-.striped h6:nth-child(odd) {
-    background-color: #f3f3f3; 
 }*/
-.list h1 {
-   width: 100%;
-   /*min-height: 2.2em;
-   line-height: 2em;
-   background: #eee; */
-   padding: 0 1em;
-   border-bottom: 1px solid #ccc;
-   text-shadow: 1px 1px 0 rgba(255,255,255,0.6) , -1px -1px 1px rgba(255,255,255,0.67) ;
-   background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);   
-}
-.rounded {
-    border-radius: 2mm;
-}
- 
-.rounded h1:first-child {
+.rounded :first-child {
    border-top-left-radius: 2mm;
    border-top-right-radius: 2mm;
 }
@@ -195,7 +184,7 @@ li.over > h5 {
    border-bottom-right-radius: 2mm;
 }
 
-.toolbar {
+.list .toolbar {
     display:block;
     float:right;
 }
@@ -264,7 +253,7 @@ li.over > h5 {
 .list li > div{
     width:100% ;
     font-size: 1em;
-    font-family:sans-serif;
+    /*font-family:sans-serif;*/
     font-weight:normal;
     display:block;
     padding: 0;
@@ -274,6 +263,7 @@ li.over > h5 {
 .list > ul:last-child{
    border-bottom: none;
 }
+/*
 .list h1,h2,h3,h4,h5,h6 {
     width:100% ;
     font-size: 1em;
@@ -282,16 +272,8 @@ li.over > h5 {
     display:block;
     padding: 0 .5em;
     border-bottom: 1px solid #eee; 
-}
-.list h1 {
-   padding:0 .5em;
-   font-weight:bold;
-   border-bottom: 1px solid #ccc; 
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-user-drag: element;
-}
+}*/
+
 
 .list i {
    height:2em;
@@ -312,8 +294,8 @@ li.over > h5 {
 }
 .search{
     display: none;
-    height: 4em;
-    padding: 1em;
+    height: 3em;
+    padding: .5em;
     width: 100%;
     background-color: #ECF4FF;
     border-bottom: 1px solid #ccc;
@@ -331,6 +313,10 @@ li.over > h5 {
     outline: none;
     box-shadow: inset 0px 0px 3px 2px #7DBAEA; /* or whatever colour you'd prefer */
 }
+
+.ui-highlight > div {
+    border-left: 4px solid #3498DB;
+}
 /*.list h2,h3,h4,h5,h6 { padding-left:0;} 
 /* indentation for the levels  */
 /*.list h3 i {width: 4em;}
@@ -343,7 +329,7 @@ li.over > h5 {
     display:block;
     box-sizing: border-box;
     height:2em;
-    margin-right:.5em;
+    margin-right:5px;
     float:left;
  }
  
@@ -392,7 +378,19 @@ h6:hover > svg > line.action{
    border: 1px solid #0074D9;;
 }
 
+.list,
+.list ul,
+.list li,
+.list div
+{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 
+.list:hover{
+   cursor: pointer; 
+}
 /* Prevent the text contents of draggable elements from being selectable. */
 [draggable] {
   -moz-user-select: none;

@@ -1,0 +1,424 @@
+
+@font-face {
+    font-family: Courgette;
+    src: url("../fonts/Courgette-Regular.ttf");
+    font-weight: normal;
+}
+@font-face {
+    font-family: Raleway;
+    src: url("../fonts/Raleway-Bold.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: Raleway;
+    src: url("../fonts/Raleway-Italic.ttf");
+    font-weight: italic;
+}
+@font-face {
+    font-family: Raleway;
+    src: url("../fonts/Raleway-Regular.ttf");
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../fonts/OpenSans-Regular.ttf");
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../fonts/OpenSans-Italic.ttf");
+    font-weight: italic;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url("../fonts/OpenSans-Bold.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Open Sans Light';
+    src: url("../fonts/OpenSans-Light.ttf");
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Open Sans Light';
+    src: url("../fonts/OpenSans-LightItalic.ttf");
+    font-weight: italic;
+}
+@font-face {
+    font-family: 'Open Sans Condensed';
+    src: url("../fonts/OpenSans-CondBold.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Open Sans Condensed';
+    src: url("../fonts/OpenSans-CondLightItalic.ttf");
+    font-weight: italic;
+}
+@font-face {
+    font-family: 'Open Sans Condensed';
+    src: url("../fonts/OpenSans-CondLight.ttf");
+    font-weight: normal;
+}
+@font-face {
+    font-family: Play;
+    src: url("../fonts/Play-Regular.ttf");
+    font-weight: normal;
+}
+@font-face {
+    font-family: Play;
+    src: url("../fonts/Play-Bold.ttf");
+    font-weight: bold;
+}
+html,body
+{
+    display: block;
+    min-height: 100% !important;
+    height: 100%;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.ui-sidebar {
+   display:block;
+   float: left;
+   width: 300px;
+   min-height:calc(100% - 60px);
+   height: calc(100% - 60px);
+}
+.ui-content
+{
+    display: block;
+/*    position: relative;*/
+    min-height: calc( 100% - 60px);
+    float:left;
+    padding: 0;
+}
+.ui-header
+{
+    display: block;
+    width: 100%;
+    min-height: 60px;
+    padding: 5px 10px;
+}
+.ui-header > .rt > p
+{
+    margin-bottom: 0;
+    line-height: 1.3em;
+    display: block;
+    height: 100%;
+    float: right;
+    padding: 5px 10px;
+}
+.ui-header small{
+    font-style: italic ;
+}
+.ui-header  img
+{
+    box-sizing: border-box;
+    width: 50px;
+    height:  50px;
+   /* float: right;*/
+    border-radius: 25px;
+    background:"#fff";
+}
+.ui-header > i
+{
+    float: right;
+    border-radius: 1.5em;
+    font-size: 2em;
+    padding: .15em .3em .25em .3em;
+    border: 1px solid #fff;
+}
+input[type="search"]  {
+    border-radius:1em;
+    padding: 0 1em;
+    width: 100%;
+    color:  #333;
+    margin: 0;
+}
+.ui-column {
+    width:300px;
+    display: block;
+    font-family: "Play", sans-serif;
+    line-height:1.5em;
+}
+.ui-header > .ui-column{
+	height: 50px;
+}
+.ui-hidden {
+    display:none;
+}
+.lt {
+    float:left;
+}
+.rt {
+    float:right;
+}
+.rt > p {
+    text-align:right;
+}
+.ui-deck
+{
+    display: block;
+    position: relative;
+    width: 350px;
+}
+.ui-searchbar {
+    display: block;
+    min-width: 280px;
+    width: 280px;
+}
+.ui-searchbar .d0{
+    position: relative;
+    left: .8em;
+    top: 1px;
+    font-family: Play, sans-serif;
+    border-left: 1px solid #666;
+    border-right: 1px solid #666;
+    width: calc(100% - 1.6em);
+    max-height: 12em;
+    display: block;
+    background: rgba(0,0,0,.4);
+    overflow-y: scroll;
+    /*font-family: sans-serif;*/
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius:  5px;
+}
+
+.ui-searchbar li {
+    list-style: none;
+    display: block;
+    height: 3em;
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,.5);
+    margin: 0;
+}
+/*.ui-searchbar li:nth-child(4) {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius:  5px;
+}*/
+.ui-searchbar .ui-hightlight{
+   background: rgba(0,0,0,.4);
+   color: #cca;
+}
+.ui-searchbar h1,
+.ui-searchbar h2,
+.ui-searchbar h3 {
+    line-height:1em;
+    font-size: small;
+    color: #eee;
+    display: inline-block;
+    float: left;
+    margin: 2px 5px;
+}
+.ui-searchbar h2,
+.ui-searchbar h3{
+	text-transform: uppercase;
+}
+/*.ui-searchbar h2 {font-family: Play, monospace;}*/
+.ui-searchbar h3 {
+    float: right;
+    display: inline-block;
+}
+.ui-searchbar h3::after{
+     content: " ]";
+}
+.ui-searchbar h3::before{
+     content: "[ ";
+}
+.ui-searchbar h1 {
+    width: calc( 100% - 10px);
+    color: #fff;
+    margin: 2px 5px;
+    font-size: 12pt;
+}
+.ui-searchbar div{
+    display: block;
+    float: left;
+    height: 3em;
+    padding: 2px 0;
+    width: calc( 100% - 2em - 10px);
+}
+.ui-searchbar img{
+    height: 2em;
+    width: 2em;
+    margin: .5em 5px;
+    float: left;
+}/*
+.ui-searchbar .d0::-webkit-scrollbar {
+    width: 6px;
+}
+.ui-searchbar .d0::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}*
+.ui-searchbar .d0::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(88,103,132,0.5); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+.ui-searchbar .d0::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255,0,0,0.4); 
+}*/
+.ui-carousal
+{
+    display: block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 90% ;
+    transform: translate(-50%,-50%);
+}
+.ui-deck span,
+.ui-carousal span {
+    display: inline-block;
+    height: 1.5em;
+    padding: .25em 0;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.ui-carousal span {
+    position: absolute ;
+    bottom : 5px;
+}
+.ui-deck i{
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: .5em;
+    margin: 0 2px;
+}
+.ui-carousal i
+{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+.ui-card {
+    display: block;
+    min-height: 500px;
+}
+header {
+    position: relative;
+    min-height: 3em;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    background: rgba(0,0,0,.5);
+    box-shadow: 0px 2px 5px #333;
+}
+footer {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 2mm;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    min-height: 1em;
+    min-width: 120px;
+   /* background: rgba(0,0,0,.5);*/
+    background-image: url("../images/oracle-logo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+/* Smaller than mobile */
+@media (max-width: 400px) 
+{
+   
+   .ui-sidebar
+   {
+       display: none;
+       width: 100%;
+   }
+   
+   .ui-content
+   {
+      /* left: 0;*/
+       width: 100%;
+   } 
+   .ui-header > p { display: none};
+   .ui-header > i,
+   .ui-header  img
+   {
+       float: left;
+   }
+}
+@media (max-height: 500px){
+    html, body {
+        overflow: scroll;
+    }
+    .ui-deck
+    {
+       min-height: 500px;
+       top: 0;
+       left: 50%;
+       transform: translate(-50%,0);
+    }
+    
+    .ui-deck span {
+        top: -490px;
+    }
+}
+/* Larger than mobile */
+@media (min-width: 400px) 
+{
+   .ui-deck
+   {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+   }
+   
+}
+/* Larger than phablet (also point when grid becomes active) */
+@media (min-width: 550px) {
+   .ui-header > .ui-searchbar{ width: 280px; margin: .5em 0;
+   }
+   .ui-carousal
+   {
+       width: 540px;
+       height: 360px;
+   }
+}
+
+/* Larger than tablet */
+@media (min-width: 750px) {
+   .ui-carousal
+   {
+       width: 720px;
+       height: 480px;
+   }
+
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) 
+{
+    .ui-content
+    {
+        left: 300px;
+        width: calc( 100% - 300px );
+        padding: 10px;
+    }
+    .ui-carousal
+    {
+        width: 900px;
+        height: 600px;
+    }
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}

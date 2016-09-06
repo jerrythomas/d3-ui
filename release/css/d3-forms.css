@@ -1,0 +1,299 @@
+form,
+.card 
+{
+    position:relative;
+    box-sizing:border-box;
+    width:360px;
+    min-height:580px ;
+    border-radius:10px;
+    margin:20px;
+    padding:20px 0;
+    display:block;
+    background-color: #eee;
+    -webkit-box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.2);
+} 
+.small {
+    width:300px;
+    height:400px;
+    min-height:400px;
+}
+.avatar,
+.avatar >  img{
+    width:100px;
+    height:100px;
+}
+
+form .fields{
+    box-sizing:border-box;
+    display:block;
+    width:100%;
+    padding: 0 20px;
+}
+
+.fields .fields {
+    padding:0;
+}
+form > .toolbar{
+    width:100%;
+    height:1em;
+    display:block;
+    margin-bottom:1em;
+}
+form .group {
+    height:1.2em;
+    display:block;
+    /*position:relative;
+    left:5px;*/
+    border-radius:2px;
+}
+form .btn {
+    height:calc(1em + 4px);
+    width:calc(1em + 4px);
+    display:block;
+    float:left;
+    padding:2px;
+    border: 1px solid #fff;
+    border-radius:2px;
+    background:#fff;
+    margin-right:2px;
+}
+input,
+select,
+textarea {
+	font-family: Play, sans-serif;
+}
+.btn > img {
+    width:1em;
+    height:1em;
+}
+form input,
+form label,
+form select,
+form textarea,
+form .row { width:100%;display:block;}
+form .buttons {
+    display:inline-block;
+    position:absolute;
+    width: max-content;
+    height: 3em;
+    left:50%;
+    bottom:15px;
+    transform:translateX(-50%);
+}
+
+.buttons svg,
+.buttons img {
+    width:3em;
+    height:3em;
+    margin:0;
+}
+.one   { width:10%;}
+.two   { width:20%;}
+.three { width:30%;}
+.four  { width:40%;}
+.five  { width:50%;}
+.six   { width:60%;}
+.seven { width:70%;}
+.eight { width:80%;}
+.nine  { width:90%;}
+
+.one-third { box-sizing:margin-box; width:33%; }
+.two-third { box-sizing:margin-box; width:66%; }
+.pad-rt {margin-right:20px;}
+.lt { float :left}
+.rt { float :right}
+.text-r{ text-align:right}
+.one-fourth   { width:25%; }
+.two-fourth   { width:25%; }
+.three-fourth { width:25%; }
+
+.hint {
+    /*border: 2px solid #D7BDE2;*/
+    border-radius:2mm;
+    border: 1px solid #D7BDE2;
+    /*border-left: 3px solid #D7BDE2;*/
+    background-color: #F5EEF8;
+    padding: 5px 15px;
+    margin-bottom:10px;
+    line-height:1 em;
+    text-align: justify;
+    font-family:  "Arial Narrow", 'Open Sans Condensed', sans-serif;
+    color:#333;
+}
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+
+  input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="time"],
+input[type="password"],
+textarea,
+select {
+  height: 2em;
+  padding: 3px 10px;
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box; 
+  margin-bottom: .3em;
+  }
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+textarea {
+  min-height: 4em;
+  line-height: 1.1em;
+  padding-top: 6px;
+  padding-bottom: 6px; 
+}
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  outline: 0; }
+label,
+legend {
+  display: block;
+  margin:0;
+  font-weight: 600; }
+fieldset {
+  padding: 0;
+  border-width: 0; }
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; 
+}
+form.one-of-two 
+{
+    position: relative;
+    top: 50%;
+    left: 25%;
+    -moz-transform: translate(-25%,-50%);
+    -ms-transform: translate(-25%,-50%);
+    -webkit-transform: translate(-25%,-50%);
+    transform: translate(-50%,-25%);
+}
+.cxy {
+    position: absolute;
+    margin:0;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.cy {
+    position: relative;
+    top: 50%;
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+}
+.cx {
+    position: relative;
+    left: 50%;
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+label 
+{
+    /*font-size: small;*/
+    /*font-family: Play, sans-serif;*/
+    font-weight: normal;
+    color: #666;
+    padding-left:5px;
+    /*height:2em;*/
+    /*margin:0;
+    line-height:1.7em;*/
+}
+
+.hdr {
+    width:100px;
+    height:100px;
+}
+.action{
+    position:relative;
+    width:3em;
+    height:3em;
+    left:calc( 50% - 1em );
+}
+.hdr  {
+    position: relative;
+    left: 50%;
+    -webkit-transform: translate(-50%,0);
+    -ms-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+}
+
+input[type="number"]{
+    text-align:right;
+    padding-right:0;
+}
+.buttons > svg,
+.buttons > img {
+    cursor:pointer;
+}
+.logo {
+   margin-bottom:10px;
+}
